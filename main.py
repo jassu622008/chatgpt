@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-openai.api_key = "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"
+openai.api_key = "Your api key"
 
 def generate_response(prompt, model):
     response = openai.Completion.create(
