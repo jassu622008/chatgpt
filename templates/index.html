@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>ChatGPT Clone</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+  </head>
+  <body>
+    <div class="container">
+      <h1>ChatGPT Clone</h1>
+      <form id="chat-form">
+        <input type="text" id="chat-input" placeholder="Type your message...">
+        <button type="submit" id="send-button">Send</button>
+      </form>
+      <div class="chat-box" id="chat-box"></div>
+      <div id="loading-bar"></div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script type="text/javascript">
+      $(document).ready(function(){
+        $('#chat-form').on('submit', function(event){
+          event.preventDefault();
+          var prompt = $('#chat-input').val();
+          $('#loading-bar').show(); // show loading bar
+          $.ajax({
+            url: '/',
+            type: 'POST',
+            data: {'prompt': prompt},
+            success: function(data){
+              $('#chat-box').append('<div class="chat-bubble"><p class="chat-response">' + data['response'] + '</p></div>');
+              $('#chat-input').val('');
+              $('#loading-bar').hide(); // hide loading bar on success
+            },
+          });
+        });
+      });
+    </script>
+  </body>
+</html>
